@@ -5,6 +5,15 @@ description: A cheatsheet of minio
 
 import ChatMessage from '../../../components/ChatMessage.astro';
 
+คือระบบ object storage แบบ high-performance ที่เข้ากันได้กับ Amazon S3 API ช่วยให้จัดเก็บและบริหารจัดการไฟล์ขนาดใหญ่ได้อย่างปลอดภัย รองรับการจัดการผู้ใช้งานด้วย User / Group / Policy และสามารถใช้งานผ่าน Console, CLI (mc), API/SDK
+
+## Bucket
+ที่เก็บข้อมูล ใน MinIO หรือ S3
+> เปรียบเหมือน โฟลเดอร์ใหญ่ ที่เก็บไฟล์หลาย ๆ ตัว
+
+## Object
+ไฟล์หรือข้อมูลที่เก็บใน bucket
+
 ## Permision
 
 Root account คือผู้ใช้ระดับสูงสุด (superuser) เพียงคนเดียว มีสิทธิ์จัดการทุกอย่างในระบบ
@@ -33,11 +42,16 @@ Root account คือผู้ใช้ระดับสูงสุด (super
 }
 ```
 
-<ChatMessage message="รูปแบบของ Policy ใน MinIO จะเหมือนกับ AWS S3 Policy เลย"  avatarKey="blackCat" />
+<ChatMessage message="MinIO ใช้ Policy format เหมือน AWS S3 เลยนะ"  avatarKey="blackCat" />
 
 ### Group
 
-คือการจัดกลุ่มผู้ใช้งาน โดยเราสามารถผูก Policy หลาย ๆ ตัวเข้ากับ Group ได้ ตัวอย่างเช่น Group: admin อาจถูกกำหนดด้วย Policy consoleAdmin และ s3FullAccess เป็นต้น
+คือการจัดกลุ่มผู้ใช้งาน โดยเราสามารถผูก Policy หลาย ๆ ตัวเข้ากับ Group ได้ ตัวอย่างเช่น
+**Group: contentManger** ประกอบไปด้วย Policy publicAssetEdit และ contentEdit เป็นต้น
+
+<ChatMessage message="การเพิ่ม User เข้า ไปใน Group User จะได้สิทธิ์ตาม Policy ของ Group ทันที" avatarKey="blackCat" />
+<ChatMessage message="ถ้าอยากให้ User ใน Group มีสิทธิ์เพิ่ม → แค่เพิ่ม Policy ให้ Group ใช่ไหม?" avatarKey="me" isFromMe="true" />
+<ChatMessage message="ใช่แล้ว~" avatarKey="blackCat" />
 
 ## Authentication
 
@@ -56,7 +70,6 @@ Root account คือผู้ใช้ระดับสูงสุด (super
 - หนึ่ง User account สามารถสร้าง หลาย Service account ได้
 
 ## Minio client commands
-
 <ChatMessage message="ก่อนจะเริ่มใช้งาน Minio client จะต้องสร้าง alias ก่อน"  avatarKey="me" isFromMe="true" />
 
 สร้าง alias ด้วยคำสั่ง
@@ -64,8 +77,6 @@ Root account คือผู้ใช้ระดับสูงสุด (super
 ```bash
 mc alias set <alias> <url> <username> <password>
 ```
-
-<ChatMessage message="mc ย่อมาจาก minio client"  avatarKey="blackCat" />
 
 ### Alias
 
@@ -76,7 +87,7 @@ alias คือชื่อที่ใช้แทน url ของ minio serve
 mc alias list
 ```
 
-<ChatMessage message="คำสั่งส่วนใหญ่จะต้องส่ง alias เข้าไปด้วยเพื่อให้ minio client รู้ว่าเรากำลังจัดการ server ไหน"  avatarKey="blackCat" />
+<ChatMessage message="ส่วนใหญ่คำสั่งต้องระบุ alias ด้วย เพื่อให้ MinIO Client รู้ว่ากำลังจัดการกับ server ไหนอยู่"  avatarKey="blackCat" />
 
 ### Group
 
