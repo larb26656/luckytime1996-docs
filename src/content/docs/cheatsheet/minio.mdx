@@ -3,6 +3,8 @@ title: Minio
 description: A cheatsheet of minio
 ---
 
+import ChatMessage from '../../../components/ChatMessage.astro';
+
 ## Permision
 
 Root account คือผู้ใช้ระดับสูงสุด (superuser) เพียงคนเดียว มีสิทธิ์จัดการทุกอย่างในระบบ
@@ -31,7 +33,7 @@ Root account คือผู้ใช้ระดับสูงสุด (super
 }
 ```
 
-> รูปแบบของ Policy ใน MinIO จะอ้างอิงตาม AWS S3 Policy ซึ่งใช้ JSON ในการกำหนดสิทธิ์การเข้าถึง
+<ChatMessage message="รูปแบบของ Policy ใน MinIO จะเหมือนกับ AWS S3 Policy เลย"  avatarKey="blackCat" />
 
 ### Group
 
@@ -53,9 +55,19 @@ Root account คือผู้ใช้ระดับสูงสุด (super
 
 - หนึ่ง User account สามารถสร้าง หลาย Service account ได้
 
-## Admin commands
+## Minio client commands
 
-### alias
+<ChatMessage message="ก่อนจะเริ่มใช้งาน Minio client จะต้องสร้าง alias ก่อน"  avatarKey="me" isFromMe="true" />
+
+สร้าง alias ด้วยคำสั่ง
+
+```bash
+mc alias set <alias> <url> <username> <password>
+```
+
+<ChatMessage message="mc ย่อมาจาก minio client"  avatarKey="blackCat" />
+
+### Alias
 
 alias คือชื่อที่ใช้แทน url ของ minio server
 
@@ -63,6 +75,8 @@ alias คือชื่อที่ใช้แทน url ของ minio serve
 # แสดง alias ในระบบ
 mc alias list
 ```
+
+<ChatMessage message="คำสั่งส่วนใหญ่จะต้องส่ง alias เข้าไปด้วยเพื่อให้ minio client รู้ว่าเรากำลังจัดการ server ไหน"  avatarKey="blackCat" />
 
 ### Group
 
