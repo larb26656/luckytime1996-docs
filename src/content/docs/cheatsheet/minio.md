@@ -69,6 +69,7 @@ mc alias list
 ```bash
 # แสดง group ในระบบ
 mc admin group list <alias>
+
 # เพิ่ม policy ให้ group
 mc admin policy attach <alias> <policy> --group <groupname>
 ```
@@ -85,12 +86,16 @@ mc admin policy list <alias>
 ```bash
 # แสดง user ในระบบ
 mc admin user list <alias>
+
 # เพิ่ม user ในระบบ
 mc admin user add <alias> <username> <password>
+
 # แสดง policy ของ user
 mc admin user policy <alias> <username>
+
 # เพิ่ม policy ให้ user
 mc admin policy attach <alias> <policy> --user <username>
+
 # ลบ policy ออกจาก user
 mc admin policy detach <alias> <policy> --user <username>
 ```
