@@ -8,12 +8,12 @@ import ChatMessage from '../../../components/ChatMessage.astro';
 ## Dropdown menu
 ### ปัญหา dropdown menu ใช้กับ dialog แล้วเมื่อ close dialog แล้วกดอะไรไม่ได้
 โดยปกติแล้วเมื่อกดเปิด dropdown menu มันจะไปใส่ `pointer-events: none;` ที่ body เพื่อป้องกันการ click ที่อื่น
-แต่ถ้าเรากำหนดให้การเลือก DropdownMenuItem จะเปิด dialog จะพบปัญหาแล้วกดปุ่มปิด dialog มันจะไม่ยอมลบ `pointer-events: none;` ออกจาก body
+แต่ถ้าเรากำหนดให้การเลือก DropdownMenuItem จะเปิด dialog เรจะพบปัญหาเมื่่อกดปุ่มปิด dialog มันจะไม่ยอมลบ `pointer-events: none;` ออกจาก body
 
 <ChatMessage message="เข้าใจว่าปัญหาพอเลือกเมนูแล้วเปิด dialog มันไม่ปิด dropdown menu state เลยค้าง"  avatarKey="blackCat" />
 
 **Solution 1:**
-เราสามารถปิด dropdown menu ก่อนกดปุ่มปิด dialog ได้
+manual ปิด dropdown menu ก่อนก่อนเปิด dialog
 
 ```tsx
 <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
@@ -40,7 +40,7 @@ const handleShowDialog = () => {
 ```
 
 **Solution 2:**
-เราสามารถปิด ปรับ model จาก true เป็น false ได้เพื่อไม่ให้ dropdown menu มัน ใส่pointer-events: none;
+ปรับ model จาก true เป็น false เพื่อไม่ให้ dropdown menu มัน ใส่ pointer-events: none;
 
 ```tsx
 <DropdownMenu modal={true}>
