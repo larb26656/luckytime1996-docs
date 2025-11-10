@@ -68,3 +68,64 @@ http:
 | **File-based** | YAML / TOML configuration (เช่น `traefik.yml`, `dynamic.yml`) |
 
 <ChatMessage message="ข้อดีของ provider ตระกูล container ochestrator ก็คือเมื่อ service เปลี่ยนชื่อ หรือมีการ เปลี่ยน traefik จะ detect และ update ให้อัตโนมัติ"  avatarKey="blackCat" />
+
+
+## Enable dashboard
+
+เพื่ม property `api.dashboard` กับ `api.insecure`
+
+``` yaml
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+api:
+  dashboard: true
+  insecure: true
+```
+
+ทดสอบเข้า dashboard ที่ url `http://localhost:8080` จะพบหน้า dashboard ของ traefik
+
+<ChatMessage message="ไม่แน่นำให้ใช้วิธีนี้ใน production นะ"  avatarKey="blackCat" />
+
+### Secure dashboard
+
+เพิ่ม entrypoint `webapi` และ ปรับ property `api.insecure` เป็น `false`
+
+```yaml
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+  webapi:
+    address: ":8080"
+api:
+  dashboard: true
+  insecure: false
+```
+
+สร้างไฟล์ config เพื่อกำหนด router และ middleware basic auth ให้ entrypoint 
+
+```yaml
+http:
+  routers:
+    webapi:
+      rule: "PathPrefix(`/`)"
+      entryPoints:
+        - webapi
+      service: api@internal
+      middlewares:
+        - auth
+  middlewares:
+    auth:
+      basicAuth:
+        users:
+          - "admin:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"  # username: admin password: test
+          # เพิ่ม user ได้ตรงนี้
+```
+
+restart traefik service และ เข้า url `http://localhost:8080` จะพบหน้าต่างให้เรากรอก username และ password เพื่อเข้าใช้งาน
+
