@@ -50,6 +50,47 @@ getent group
 groupdel <groupname>
 ```
 
+### Shell
+
+```bash
+# ตรวจสอบ shell ที่กำลังใช้งาน
+echo $SHELL
+
+# ตรวจสอบ shell ของ process ปัจจุบัน
+ps -p $$
+
+# ดู shell ที่มีให้ใช้งาน
+cat /etc/shells
+
+# เปลี่ยน default shell ของ user
+chsh -s /bin/bash
+
+# สลับ shell ชั่วคราว
+zsh
+bash
+fish
+
+# แสดง environment variables
+env
+printenv
+
+# แสดงค่าของตัวแปรเฉพาะ
+echo $HOME
+echo $PATH
+
+# ตั้งค่า environment variable ชั่วคราว
+export MY_VAR="value"
+
+# แสดงประวัติคำสั่ง
+history
+
+# รันคำสั่งล่าสุด
+!!
+
+# รันคำสั่งลำดับที่ n
+!n
+```
+
 ## Create jail
 การ สร้าง Jail (chroot jail) คือการ “จำกัดขอบเขตการเข้าถึงของผู้ใช้” ให้อยู่ภายในพื้นที่เฉพาะของระบบไฟล์ (directory) เท่านั้น — เหมือน “ขังผู้ใช้ไว้ในกรง” ที่มองเห็นและเข้าถึงได้เฉพาะไฟล์และคำสั่งที่อนุญาตเท่านั้น
 
